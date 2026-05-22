@@ -1,0 +1,240 @@
+---
+// ✅ = yes / ❌ = no / ⚠ = partial — based on default installation
+const rows = [
+  {
+    label:   'Modern UI',
+    padduck: { v: 'yes',     note: 'React SPA'            },
+    phpipam: { v: 'no',      note: 'PHP / dated'          },
+    netbox:  { v: 'partial', note: 'Django — decent'      },
+  },
+  {
+    label:   'API-first design',
+    padduck: { v: 'yes',     note: 'OpenAPI-documented'   },
+    phpipam: { v: 'partial', note: 'API available'        },
+    netbox:  { v: 'yes',     note: 'REST + GraphQL'       },
+  },
+  {
+    label:   'Docker deploy',
+    padduck: { v: 'yes',     note: '2 commands'           },
+    phpipam: { v: 'yes',     note: 'Supported'            },
+    netbox:  { v: 'partial', note: 'More complex'         },
+  },
+  {
+    label:   'Network discovery',
+    padduck: { v: 'yes',     note: 'Built-in + agents'    },
+    phpipam: { v: 'yes',     note: 'Ping scanner'         },
+    netbox:  { v: 'no',      note: 'Plugin required'      },
+  },
+  {
+    label:   'DNS integration',
+    padduck: { v: 'yes',     note: 'Built-in'             },
+    phpipam: { v: 'yes',     note: 'Built-in'             },
+    netbox:  { v: 'no',      note: 'Plugin required'      },
+  },
+  {
+    label:   'Webhooks',
+    padduck: { v: 'yes',     note: 'With replay'          },
+    phpipam: { v: 'no',      note: 'Not built-in'        },
+    netbox:  { v: 'yes',     note: 'Supported'            },
+  },
+  {
+    label:   'Immutable audit log',
+    padduck: { v: 'yes',     note: 'Full history'         },
+    phpipam: { v: 'partial', note: 'Basic logging'        },
+    netbox:  { v: 'yes',     note: 'Supported'            },
+  },
+  {
+    label:   'SSO (OAuth2 / SAML2)',
+    padduck: { v: 'yes',     note: 'LDAP + OAuth2 + SAML2' },
+    phpipam: { v: 'partial', note: 'LDAP + limited OAuth' },
+    netbox:  { v: 'yes',     note: 'Full SSO support'    },
+  },
+  {
+    label:   'License',
+    padduck: { v: 'text', note: 'GPL-3.0'    },
+    phpipam: { v: 'text', note: 'GPL-3.0'    },
+    netbox:  { v: 'text', note: 'Apache-2.0' },
+  },
+];
+
+const ind = (v: string, note: string) => {
+  if (v === 'yes')     return { icon: '✓', cls: 'ind-yes',     note };
+  if (v === 'no')      return { icon: '✗', cls: 'ind-no',      note };
+  if (v === 'partial') return { icon: '◒', cls: 'ind-partial', note };
+  return { icon: '',   cls: '',             note };
+};
+---
+<section class="section cmp-section" id="compare">
+  <div class="container">
+    <div class="cmp-header">
+      <p class="eyebrow">Comparison</p>
+      <h2 class="cmp-title">See how Padduck stacks up.</h2>
+      <p class="cmp-sub">
+        A factual look at default capabilities. Both competitors support
+        additional features via plugins or custom configuration.
+      </p>
+    </div>
+
+    <div class="cmp-table-wrap">
+      <table class="cmp-table" aria-label="Feature comparison: Padduck vs phpIPAM vs NetBox">
+        <thead>
+          <tr>
+            <th scope="col" class="cmp-col-feature">Feature</th>
+            <th scope="col" class="cmp-col-padduck">
+              <div class="cmp-th-inner cmp-th-padduck">
+                <span class="cmp-winner-badge">Padduck</span>
+              </div>
+            </th>
+            <th scope="col">phpIPAM</th>
+            <th scope="col">NetBox</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => {
+            const p = ind(row.padduck.v, row.padduck.note);
+            const ph = ind(row.phpipam.v, row.phpipam.note);
+            const nb = ind(row.netbox.v,  row.netbox.note);
+            return (
+              <tr>
+                <td class="cmp-label">{row.label}</td>
+                <td class="cmp-cell cmp-cell-padduck">
+                  {row.padduck.v === 'text'
+                    ? <span class="cmp-text">{row.padduck.note}</span>
+                    : <><span class={p.cls} aria-label={row.padduck.v}>{p.icon}</span><span class="cmp-note">{p.note}</span></>
+                  }
+                </td>
+                <td class="cmp-cell">
+                  {row.phpipam.v === 'text'
+                    ? <span class="cmp-text">{row.phpipam.note}</span>
+                    : <><span class={ph.cls} aria-label={row.phpipam.v}>{ph.icon}</span><span class="cmp-note">{ph.note}</span></>
+                  }
+                </td>
+                <td class="cmp-cell">
+                  {row.netbox.v === 'text'
+                    ? <span class="cmp-text">{row.netbox.note}</span>
+                    : <><span class={nb.cls} aria-label={row.netbox.v}>{nb.icon}</span><span class="cmp-note">{nb.note}</span></>
+                  }
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="cmp-disclaimer">
+      Comparison reflects default/official capabilities as of May 2026.
+      All three tools are open source and actively maintained.
+    </p>
+  </div>
+</section>
+
+<style>
+.cmp-section {
+  background: linear-gradient(180deg, #020812 0%, rgba(7, 22, 43, 0.5) 50%, #020812 100%);
+}
+
+.cmp-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 56px;
+}
+.cmp-title {
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  margin-block: 16px 16px;
+}
+.cmp-sub {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+/* Table */
+.cmp-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--r-xl);
+  border: 1px solid var(--line-md);
+}
+
+.cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  background: linear-gradient(160deg, rgba(10, 31, 58, 0.75), rgba(7, 22, 43, 0.5));
+}
+
+.cmp-table thead tr {
+  border-bottom: 1px solid var(--line-md);
+}
+
+.cmp-table th {
+  padding: 18px 20px;
+  text-align: left;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+}
+
+.cmp-col-feature { width: 28%; }
+.cmp-col-padduck { width: 24%; }
+
+.cmp-th-inner { display: flex; align-items: center; gap: 10px; }
+
+.cmp-winner-badge {
+  display: inline-flex;
+  padding: 5px 14px;
+  background: var(--gold-dim);
+  border: 1px solid rgba(245, 184, 0, 0.28);
+  border-radius: 999px;
+  color: var(--gold-2);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.cmp-table tbody tr {
+  border-bottom: 1px solid var(--line);
+  transition: background 0.15s;
+}
+.cmp-table tbody tr:last-child { border-bottom: none; }
+.cmp-table tbody tr:hover { background: rgba(244, 247, 250, 0.03); }
+
+.cmp-label {
+  padding: 16px 20px;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.cmp-cell {
+  padding: 16px 20px;
+  color: var(--muted);
+}
+
+.cmp-cell-padduck {
+  background: rgba(245, 184, 0, 0.04);
+  border-left: 1px solid rgba(245, 184, 0, 0.12);
+  border-right: 1px solid rgba(245, 184, 0, 0.12);
+}
+
+.cmp-cell { display: table-cell; }
+
+.ind-yes, .ind-no, .ind-partial { margin-right: 8px; font-weight: 800; }
+
+.cmp-note { color: var(--muted-2); font-size: 0.85rem; }
+.cmp-text { color: var(--muted); font-size: 0.9rem; }
+
+.cmp-disclaimer {
+  text-align: center;
+  color: var(--muted-2);
+  font-size: 0.82rem;
+  margin-top: 20px;
+}
+
+@media (max-width: 700px) {
+  .cmp-table th,
+  .cmp-table td { padding: 14px 14px; }
+  .cmp-note { display: none; }
+}
+</style>

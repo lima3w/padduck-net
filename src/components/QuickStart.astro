@@ -1,0 +1,189 @@
+---
+const DOCS_INSTALL = 'https://github.com/lima3w/padduck/wiki/Installation-Guide';
+const DOCS_CONFIG  = 'https://github.com/lima3w/padduck/wiki/Configuration';
+---
+<section class="section qs-section" id="quickstart">
+  <!-- Background grid -->
+  <div class="qs-grid-bg" aria-hidden="true"></div>
+
+  <div class="container qs-inner">
+    <div class="qs-left">
+      <p class="eyebrow">Quick Start</p>
+      <h2 class="qs-title">Running in under<br />two minutes.</h2>
+      <p class="qs-body">
+        Padduck ships as a Docker Compose stack. Pull the images, start the
+        services, and you're in the UI. The admin password is auto-generated
+        on first boot and printed to the container log.
+      </p>
+      <div class="qs-links">
+        <a href={DOCS_INSTALL} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          Full installation guide
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href={DOCS_CONFIG} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+          Configuration →
+        </a>
+      </div>
+    </div>
+
+    <div class="qs-right">
+      <!-- Step 1 -->
+      <div class="qs-step">
+        <div class="qs-step-header">
+          <span class="qs-step-num">1</span>
+          <span class="qs-step-label">Grab the compose file</span>
+        </div>
+        <pre class="code-block" aria-label="Step 1: download compose file"><code><span class="comment"># Download the official compose file</span>
+<span class="cmd">curl</span> -LO https://raw.githubusercontent.com/lima3w/padduck/main/compose.yaml</code></pre>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="qs-step">
+        <div class="qs-step-header">
+          <span class="qs-step-num">2</span>
+          <span class="qs-step-label">Start the stack</span>
+        </div>
+        <pre class="code-block" aria-label="Step 2: start the stack"><code><span class="comment"># Pull latest images and start</span>
+<span class="cmd">docker</span> compose pull
+<span class="cmd">docker</span> compose up -d</code></pre>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="qs-step">
+        <div class="qs-step-header">
+          <span class="qs-step-num">3</span>
+          <span class="qs-step-label">Open the UI</span>
+        </div>
+        <pre class="code-block" aria-label="Step 3: access the UI"><code><span class="comment"># UI is available at port 3000</span>
+<span class="comment"># Admin password is in the container log</span>
+<span class="cmd">open</span> http://localhost:3000
+
+<span class="cmd">docker</span> compose logs padduck | grep -i password</code></pre>
+      </div>
+
+      <!-- Note -->
+      <p class="qs-note">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        See the <a href={DOCS_CONFIG} target="_blank" rel="noopener noreferrer">configuration guide</a> for production settings: TLS, external PostgreSQL, MFA encryption keys, and port customisation.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+.qs-section {
+  position: relative;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(245, 184, 0, 0.07), transparent 50%),
+    linear-gradient(180deg, #020812, var(--navy-2), #020812);
+  overflow: hidden;
+}
+
+.qs-grid-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(244, 247, 250, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244, 247, 250, 0.025) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 60% 80% at 20% 50%, black 0%, transparent 70%);
+}
+
+.qs-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: clamp(40px, 6vw, 100px);
+  align-items: start;
+}
+
+.qs-title {
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  margin-block: 16px 20px;
+}
+
+.qs-body {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+.qs-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Steps */
+.qs-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.qs-step {}
+
+.qs-step-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.qs-step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  border: 1px solid rgba(245, 184, 0, 0.25);
+  color: var(--gold);
+  font-size: 0.82rem;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.qs-step-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.code-block {
+  margin: 0;
+  white-space: pre;
+}
+
+.qs-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: var(--muted-2);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: rgba(244, 247, 250, 0.03);
+}
+.qs-note svg { flex-shrink: 0; margin-top: 2px; }
+.qs-note a {
+  color: var(--gold);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.qs-note a:hover { color: var(--gold-2); }
+
+@media (max-width: 900px) {
+  .qs-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+</style>

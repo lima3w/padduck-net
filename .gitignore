@@ -1,0 +1,8 @@
+.claude/
+
+# Astro build output
+dist/
+.astro/
+
+# Node
+node_modules/

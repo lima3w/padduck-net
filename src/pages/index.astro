@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import ProblemSolution from '../components/ProblemSolution.astro';
+import Features from '../components/Features.astro';
+import QuickStart from '../components/QuickStart.astro';
+import Comparison from '../components/Comparison.astro';
+import TrustSignals from '../components/TrustSignals.astro';
+import FAQ from '../components/FAQ.astro';
+import CTAFooter from '../components/CTAFooter.astro';
+---
+<Layout>
+  <Nav />
+  <main>
+    <Hero />
+    <hr class="divider" />
+    <ProblemSolution />
+    <hr class="divider" />
+    <Features />
+    <hr class="divider" />
+    <QuickStart />
+    <hr class="divider" />
+    <Comparison />
+    <hr class="divider" />
+    <TrustSignals />
+    <hr class="divider" />
+    <FAQ />
+  </main>
+  <CTAFooter />
+</Layout>

@@ -1,0 +1,171 @@
+---
+const GITHUB = 'https://github.com/lima3w/padduck';
+const DOCS   = 'https://github.com/lima3w/padduck/wiki';
+---
+<header class="nav">
+  <div class="container nav-inner">
+    <!-- Logo -->
+    <a href="/" class="nav-logo" aria-label="Padduck home">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Stylised duck silhouette placeholder — replace with real icon if available -->
+        <circle cx="14" cy="14" r="13" fill="rgba(245,184,0,0.12)" stroke="#f5b800" stroke-width="1.5"/>
+        <circle cx="14" cy="12" r="5" fill="#f5b800"/>
+        <ellipse cx="14" cy="20" rx="8" ry="5" fill="#f5b800" opacity="0.7"/>
+        <circle cx="16.5" cy="10.5" r="1" fill="#07162b"/>
+      </svg>
+      <span class="nav-wordmark">Padduck</span>
+    </a>
+
+    <!-- Navigation links -->
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#features">Features</a>
+      <a href="#quickstart">Quick&nbsp;Start</a>
+      <a href="#compare">Compare</a>
+      <a href={DOCS} target="_blank" rel="noopener noreferrer">Docs</a>
+    </nav>
+
+    <!-- CTA -->
+    <a href={GITHUB} target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm nav-cta">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844a9.59 9.59 0 012.504.337c1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.202 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.579.688.481C19.138 20.2 22 16.447 22 12.021 22 6.484 17.522 2 12 2z"/>
+      </svg>
+      GitHub
+    </a>
+
+    <!-- Mobile menu toggle -->
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div class="nav-mobile">
+    <a href="#features">Features</a>
+    <a href="#quickstart">Quick Start</a>
+    <a href="#compare">Compare</a>
+    <a href={DOCS} target="_blank" rel="noopener noreferrer">Docs</a>
+    <a href={GITHUB} target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">View on GitHub</a>
+  </div>
+</header>
+
+<style>
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(2, 8, 18, 0.82);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  height: 60px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  transition: opacity 0.2s;
+}
+.nav-logo:hover { opacity: 0.85; }
+
+.nav-wordmark { color: var(--white); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+
+.nav-links a {
+  padding: 6px 12px;
+  border-radius: var(--r-sm);
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.15s, background 0.15s;
+}
+.nav-links a:hover {
+  color: var(--white);
+  background: rgba(244, 247, 250, 0.06);
+}
+
+.nav-cta { flex-shrink: 0; }
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: auto;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--muted);
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.nav-mobile {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 16px 16px;
+  border-top: 1px solid var(--line);
+}
+.nav-mobile a {
+  padding: 10px 14px;
+  border-radius: var(--r-sm);
+  color: var(--muted);
+  font-weight: 500;
+  transition: color 0.15s, background 0.15s;
+}
+.nav-mobile a:hover {
+  color: var(--white);
+  background: rgba(244, 247, 250, 0.06);
+}
+
+@media (max-width: 760px) {
+  .nav-links  { display: none; }
+  .nav-cta    { display: none; }
+  .nav-toggle { display: flex; }
+  .nav.open .nav-mobile { display: flex; }
+  .nav.open .nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
+  .nav.open .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+}
+</style>
+
+<script>
+  const nav    = document.querySelector('.nav') as HTMLElement;
+  const toggle = document.querySelector('.nav-toggle') as HTMLButtonElement;
+  if (nav && toggle) {
+    toggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+    // Close on nav link click
+    document.querySelectorAll('.nav-mobile a').forEach(a => {
+      a.addEventListener('click', () => {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>
