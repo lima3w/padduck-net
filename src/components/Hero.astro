@@ -1,4 +1,9 @@
 ---
+interface Props {
+  latestRelease: string | null;
+  commitCount: string | null;
+}
+const { latestRelease, commitCount } = Astro.props;
 const GITHUB  = 'https://github.com/lima3w/padduck';
 const DOCS    = 'https://github.com/lima3w/padduck/wiki';
 const INSTALL = 'https://github.com/lima3w/padduck/wiki/Installation-Guide';
@@ -15,7 +20,7 @@ const INSTALL = 'https://github.com/lima3w/padduck/wiki/Installation-Guide';
     <!-- Badge -->
     <div class="badge hero-badge">
       <span class="badge-dot"></span>
-      Public Beta &nbsp;·&nbsp; v1.30.0 released
+      Public Beta &nbsp;·&nbsp; <span data-github="release">{latestRelease ?? '—'}</span> released
     </div>
 
     <!-- Headline -->
@@ -53,12 +58,12 @@ const INSTALL = 'https://github.com/lima3w/padduck/wiki/Installation-Guide';
     <!-- Quick-stat strip -->
     <div class="hero-stats">
       <div class="stat">
-        <span class="stat-value">v1.30.0</span>
+        <span class="stat-value" data-github="release">{latestRelease ?? '—'}</span>
         <span class="stat-label">Latest release</span>
       </div>
       <div class="stat-sep" aria-hidden="true"></div>
       <div class="stat">
-        <span class="stat-value">454+</span>
+        <span class="stat-value" data-github="commits">{commitCount ?? '—'}</span>
         <span class="stat-label">Commits on main</span>
       </div>
       <div class="stat-sep" aria-hidden="true"></div>
