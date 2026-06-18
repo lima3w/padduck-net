@@ -9,11 +9,14 @@ import Comparison from '../components/Comparison.astro';
 import TrustSignals from '../components/TrustSignals.astro';
 import FAQ from '../components/FAQ.astro';
 import CTAFooter from '../components/CTAFooter.astro';
+import { fetchGitHubStats } from '../lib/github';
+
+const github = await fetchGitHubStats();
 ---
 <Layout>
   <Nav />
   <main>
-    <Hero />
+    <Hero latestRelease={github.latestRelease} commitCount={github.commitCount} />
     <hr class="divider" />
     <ProblemSolution />
     <hr class="divider" />
@@ -23,9 +26,38 @@ import CTAFooter from '../components/CTAFooter.astro';
     <hr class="divider" />
     <Comparison />
     <hr class="divider" />
-    <TrustSignals />
+    <TrustSignals latestRelease={github.latestRelease} commitCount={github.commitCount} />
     <hr class="divider" />
     <FAQ />
   </main>
   <CTAFooter />
 </Layout>
+
+<script>
+const REPO = 'lima3w/padduck';
+const BASE = 'https://api.github.com';
+const HEADERS = { Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
+
+(async () => {
+  const [releaseRes, commitsRes] = await Promise.allSettled([
+    fetch(`${BASE}/repos/${REPO}/releases/latest`, { headers: HEADERS }),
+    fetch(`${BASE}/repos/${REPO}/commits?per_page=1&sha=main`, { headers: HEADERS }),
+  ]);
+
+  if (releaseRes.status === 'fulfilled' && releaseRes.value.ok) {
+    const data = await releaseRes.value.json();
+    if (data.tag_name) {
+      document.querySelectorAll('[data-github="release"]').forEach(el => { el.textContent = data.tag_name; });
+    }
+  }
+
+  if (commitsRes.status === 'fulfilled' && commitsRes.value.ok) {
+    const link = commitsRes.value.headers.get('link') ?? '';
+    const match = link.match(/[?&]page=(\d+)>; rel="last"/);
+    if (match) {
+      const count = parseInt(match[1], 10).toLocaleString();
+      document.querySelectorAll('[data-github="commits"]').forEach(el => { el.textContent = count; });
+    }
+  }
+})();
+</script>

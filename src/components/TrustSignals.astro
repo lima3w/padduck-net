@@ -1,12 +1,17 @@
 ---
+interface Props {
+  latestRelease: string | null;
+  commitCount: string | null;
+}
+const { latestRelease, commitCount } = Astro.props;
 const GITHUB = 'https://github.com/lima3w/padduck';
 
 const stats = [
-  { value: 'v1.30.0',   label: 'Latest release',    link: `${GITHUB}/releases/latest` },
-  { value: '454+',      label: 'Commits on main',   link: `${GITHUB}/commits/main`    },
-  { value: 'GPL-3.0',   label: 'Open source',       link: `${GITHUB}/blob/main/LICENSE` },
-  { value: 'Go + React', label: 'Tech stack',       link: null                         },
-  { value: 'PostgreSQL', label: 'Data store',       link: null                         },
+  { value: latestRelease ?? '—', label: 'Latest release',  link: `${GITHUB}/releases/latest`,  githubKey: 'release' },
+  { value: commitCount   ?? '—', label: 'Commits on main', link: `${GITHUB}/commits/main`,      githubKey: 'commits' },
+  { value: 'GPL-3.0',            label: 'Open source',     link: `${GITHUB}/blob/main/LICENSE`, githubKey: null      },
+  { value: 'Go + React',         label: 'Tech stack',      link: null,                          githubKey: null      },
+  { value: 'PostgreSQL',         label: 'Data store',      link: null,                          githubKey: null      },
 ];
 ---
 <section class="section trust-section" aria-label="Project stats and trust signals">
@@ -38,12 +43,12 @@ const stats = [
           <div class="trust-stat card">
             {s.link
               ? <a href={s.link} target="_blank" rel="noopener noreferrer" class="trust-stat-link">
-                  <span class="trust-val">{s.value}</span>
+                  <span class="trust-val" data-github={s.githubKey ?? undefined}>{s.value}</span>
                   <span class="trust-lbl">{s.label}</span>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="trust-ext" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 </a>
               : <div class="trust-stat-plain">
-                  <span class="trust-val">{s.value}</span>
+                  <span class="trust-val" data-github={s.githubKey ?? undefined}>{s.value}</span>
                   <span class="trust-lbl">{s.label}</span>
                 </div>
             }
