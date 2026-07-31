@@ -2,9 +2,7 @@ name: Deploy to Cloudflare Pages
 
 on:
   push:
-    branches: ['**']        # every branch push — main → production, others → preview
-  pull_request:
-    branches: ['**']        # PRs get a preview URL posted as a comment
+    branches: [main]        # only deploy once a PR is merged to main
 
 jobs:
   deploy:
@@ -13,7 +11,6 @@ jobs:
     permissions:
       contents: read
       deployments: write    # required for Cloudflare Pages deployments
-      pull-requests: write  # allows the action to post preview URLs on PRs
 
     steps:
       - name: Checkout
@@ -38,4 +35,4 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: padduck-net
           directory: dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}   # posts preview URLs on PRs
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
